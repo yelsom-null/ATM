@@ -3,6 +3,7 @@ import java.util.*;
 public class Account {
     private double customerAccountBalance;
     private long customerAccountNumber;
+    private String debitCard;
 
     public Account() {
     }
@@ -39,16 +40,11 @@ public class Account {
        this.customerAccountNumber = accountNumber;
     }
 
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Account account = (Account) o;
-
-        return Objects.equals(customerAccountNumber, account.customerAccountNumber);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
-
 
     @Override
     public String toString() {

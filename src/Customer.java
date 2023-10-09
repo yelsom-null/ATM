@@ -1,13 +1,13 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Customer {
     private String firstName;
     private String lastName;
     private String dateOfBirth;
     private String pin;
-    private double deposit;
-    private Map<Account,Account> accountMap = new HashMap<>();
+    private String nameOnCard;
+    private String fullName;
+    List<String> DebitCard = new ArrayList<>();
 
     Account customerAccountNumber;
     Account customerAccountBalance;
@@ -29,6 +29,14 @@ public class Customer {
         this.pin = pin;
         this.customerAccountNumber = customerAccountNumber;
         this.customerAccountBalance = customerAccountBalance;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = getFirstName() + " " + getLastName();
     }
 
     public String getFirstName() {
@@ -64,6 +72,41 @@ public class Customer {
     }
 
 
+    public List<String> createDebitCard(String nameOnCard){
+        this.nameOnCard = fullName;
+        Random rand = new Random();
+        int digits = 9251;
+        int digits1 = rand.nextInt(0,9999);
+        int digits2 = rand.nextInt(0,9999);
+        int digits3 = rand.nextInt(0,9999);
+        StringBuilder builder = new StringBuilder();
+        builder.append(digits + "-" + digits1 + "-" + digits2 + "-" + digits3);
+
+        String customerCardNumber = builder.toString();
+
+
+        Random rand2 = new Random();
+        String month = String.valueOf(rand2.nextInt(01,12));
+        String year = String.valueOf(rand2.nextInt(27,30));
+
+        StringBuilder expBuilder = new StringBuilder();
+        expBuilder.append(month + "/" + year);
+
+
+        String customerCardExpDate = expBuilder.toString();
+        Random rand3 = new Random();
+        String cvvDigits = String.valueOf(rand3.nextInt(000,999));
+        StringBuilder cvvBuilder = new StringBuilder();
+        cvvBuilder.append(cvvDigits);
+        String customerCVV = cvvBuilder.toString();
+
+        StringBuilder totalCard = new StringBuilder();
+        totalCard.append("Name On Card: " + firstName + " " + lastName +"\n" + "Card Number: " + customerCardNumber + "\n" +
+                "Expiration Date: " + customerCardExpDate + "\n" + "cvv: " + customerCVV + " ");
+        DebitCard.add(totalCard.toString());
+        return DebitCard;
+    }
+
 
 
 
@@ -75,5 +118,6 @@ public class Customer {
                 "Date Of Birth: " + dateOfBirth + '\n' +
                 "Pin: " + pin + '\n' +
                 "Customer Account Number: " + customerAccountNumber.toString() + '\n';
+
     }
 }

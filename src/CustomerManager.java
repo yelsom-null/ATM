@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
 import java.util.Map;
 
 public class CustomerManager {
@@ -12,7 +11,16 @@ public class CustomerManager {
         String firstName, lastName, dob, pin, deposit,withdraw;
         String input = null;
         while (true) {
-            System.out.println("Please enter an action: Create Customer , Deposit from Account , Withdraw from Account");
+            System.out.println();
+            System.out.println("Options for managing customers: " + "\n " +
+                    " Create Customer \n " +
+                    " Deposit \n " +
+                    " Withdraw \n " +
+                    " Request Debit Card \n " +
+                    " Request Credit Card \n " +
+                    " Start Wire \n " +
+                    " View Balance \n " +
+                    " View Customer Information \n ");
             input = in.readLine();
 
             switch (input) {
@@ -105,13 +113,32 @@ public class CustomerManager {
                            if(key.equals(Long.parseLong(accountNum)))
                            System.out.print(key + " " + value);
                        });
-                   } else {
+                   }
+                   else {
                        System.out.println("Customer with this account number does not exist.");
                    }
                    break;
                }
+                case "Request Debit Card" : {
+                    System.out.println("Enter account number: ");
+                    String accountNum = in.readLine();
+                    Customer currentCustomer = null;
+                    for (Account account : customerAccountMap.keySet()) {
+                        if (account.getCustomerAccountNumber() == Long.parseLong(accountNum)) {
+                            currentCustomer = customerAccountMap.get(account);
+                            break;
+                        }
+                    }
+                    currentCustomer.createDebitCard(currentCustomer.getFullName());
+                    Customer finalCurrentCustomer = currentCustomer;
+                    customerAccountMap.
+                            forEach((key,value) ->{
+                                System.out.println(value);
+                                System.out.println(finalCurrentCustomer.DebitCard);
+                            });
+                    break;
+                }
            }
-
         }
     }
 }
